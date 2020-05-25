@@ -16,21 +16,29 @@ void PipeList::PrintList()
         cout << v << endl;
 }
 
+void PipeList::Sort()
+{
+    lines.sort();
+}
+
+void PipeList::Reverse()
+{
+    lines.reverse();
+}
+
 list<string> PipeList::StringToLines(string text, int lineSize)
 {
     list<string> result;
     string temp;
     int markbegin = 0;
     int markend = 0;
-
+    string line;
     for (int i = 0; i < text.length(); ++i)
     {
         if (text[i] == '\n')
         {
             markend = i;
-            string line = text.substr(markbegin, markend - markbegin);
-           // cout << "line Size " << line.size() << endl;
-            //cout << "parameter Size " << lineSize << endl;
+            line = text.substr(markbegin, markend - markbegin);
             if (line.size() < lineSize)
                 result.push_back(line);
             else
@@ -39,6 +47,25 @@ list<string> PipeList::StringToLines(string text, int lineSize)
             markbegin = (i + 1);
         }
     }
+
+    //Add last line
+    line = text.substr(markbegin, text.size());
+    if (result.size() != 0)
+    {
+        if (line.size() < lineSize)
+            result.push_back(line);
+        else
+            result.push_back(line.substr(0, lineSize));
+    }
+    //if file has only one line
+    else
+    {
+        if (line.size() < lineSize)
+            result.push_back(text);
+        else
+            result.push_back(text.substr(0, lineSize));
+    }
+
     return result;
 }
 
@@ -63,6 +90,5 @@ void increaseBuffer(char **str, int c)
         *str = buffer;
         buffer[len] = c;
         buffer[len + 1] = 0;
-        // cout << "Buffer size: " << len << endl;
     }
 }

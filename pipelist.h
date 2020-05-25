@@ -10,15 +10,17 @@ class PipeList
 {
 private:
     std::list<std::string> lines;
- 
+
     std::list<std::string> StringToLines(std::string text, int lineSize);
 
 public:
     PipeList();
     PipeList(int lineSize, std::string text);
 
-   void SeparateByLine(std::string text);
-   void PrintList();
+    void Sort();
+    void SeparateByLine(std::string text);
+    void PrintList();
+    void Reverse();
 };
 
 void increaseBuffer(char **str, int c);

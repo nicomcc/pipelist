@@ -12,7 +12,6 @@ int main(int argc, char *argv[])
     char *pipeData = nullptr;
 
     int lineSize;
-    int lineCount = 0;
     int input;
 
     if (argc > 1)
@@ -21,21 +20,23 @@ int main(int argc, char *argv[])
         cout << "Parameter: " << lineSize << endl;
 
         while ((input = getchar()) != EOF)
-        {
-            
-            if (input == '\n' || input == '\r')
-                lineCount++;
-
+        {            
             increaseBuffer(&pipeData, input);
         }
 
-        cout << pipeData << endl;
-        cout << "line count: " << lineCount << endl;
+        cout << endl << "***********Original lines***********" << endl;
         PipeList lines(lineSize, pipeData);
         lines.PrintList();
 
-        
+        cout << endl << "***********Sorted lines***********" << endl;
+        lines.Sort();
+        lines.PrintList();
 
+        cout << endl << "***********Reverse Sorted lines***********" << endl;
+        lines.Reverse();
+        lines.PrintList();
+
+        //free memory
         free(pipeData);
         pipeData = NULL;
     }
@@ -45,7 +46,7 @@ int main(int argc, char *argv[])
         cout << "Insufficient parameters" << endl;
     }
 
-    cout << endl;
+   // cout << endl;
 
     return 0;
 }
