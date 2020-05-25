@@ -3,7 +3,10 @@
 #include <string.h>
 #include "pipelist.h"
 
+#include <vector>
+
 using namespace std;
+
 
 
 int main(int argc, char *argv[])
@@ -11,6 +14,7 @@ int main(int argc, char *argv[])
     char *pipeData = nullptr;
 
     int lineSize;
+    int lineCount = 0;
     int input;
 
     if (argc > 1)
@@ -21,19 +25,30 @@ int main(int argc, char *argv[])
         while ((input = getchar()) != EOF)
         {
             //prevents from jumping line
-            if(input == '\n' || input == '\r') continue;
+            if (input == '\n' || input == '\r')
+            {
+                lineCount++;
+                // continue;
+            }
             increaseBuffer(&pipeData, input);
         }
 
+        PipeList test;
+        test.StringToLines(pipeData);
 
-    
-    PipeList test;
-    cout << "class print: " << endl;
-    test.printText(pipeData);
+        
 
-    cout << "text after buffer" << endl << pipeData << endl; 
-    } 
-  
+        /*
+        cout << "line count: " << lineCount << endl;
+        cout << "class print: " << endl;
+        test.printText(pipeData);
+
+        cout << "text after buffer" << endl
+             << pipeData << endl;*/
+
+        free(pipeData);
+        pipeData = NULL;
+    }
 
     else if (argc <= 1)
     {
