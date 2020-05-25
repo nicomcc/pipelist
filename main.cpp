@@ -7,8 +7,6 @@
 
 using namespace std;
 
-
-
 int main(int argc, char *argv[])
 {
     char *pipeData = nullptr;
@@ -24,27 +22,19 @@ int main(int argc, char *argv[])
 
         while ((input = getchar()) != EOF)
         {
-            //prevents from jumping line
+            
             if (input == '\n' || input == '\r')
-            {
                 lineCount++;
-                // continue;
-            }
+
             increaseBuffer(&pipeData, input);
         }
 
-        PipeList test;
-        test.StringToLines(pipeData);
+        cout << pipeData << endl;
+        cout << "line count: " << lineCount << endl;
+        PipeList lines(lineSize, pipeData);
+        lines.PrintList();
 
         
-
-        /*
-        cout << "line count: " << lineCount << endl;
-        cout << "class print: " << endl;
-        test.printText(pipeData);
-
-        cout << "text after buffer" << endl
-             << pipeData << endl;*/
 
         free(pipeData);
         pipeData = NULL;
